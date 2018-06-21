@@ -7,6 +7,7 @@
 //
 
 import simd
+import MetalKit
 import Metal
 
 class Triangle: Node {
@@ -17,7 +18,12 @@ class Triangle: Node {
             Vertex(position: float4(-1.0, -1.0, 0, 1), color: float4(0, 1, 0, 1)),
             Vertex(position: float4( 1.0, -1.0, 0, 1), color: float4(0, 0, 1, 1))
         ]
-        super.init(name: "Triangle", vertices: vertices, device: device)
+
+        let cgImage = UIImage(named: "test")!.cgImage!
+        let textureLoader = MTKTextureLoader(device: device)
+        let texture = try! textureLoader.newTexture(cgImage: cgImage, options: nil)
+
+        super.init(name: "Triangle", vertices: vertices, device: device, texture: texture)
     }
 
 }

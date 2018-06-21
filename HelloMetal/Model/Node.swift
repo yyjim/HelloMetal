@@ -8,6 +8,7 @@
 
 import Foundation
 import simd
+import MetalKit
 import Metal
 import QuartzCore
 
@@ -29,6 +30,23 @@ class Node {
 
     var time = CFTimeInterval(0.0)
 
+    var texture: MTLTexture?
+
+    lazy var samplerState: MTLSamplerState? = {
+        let sampler = MTLSamplerDescriptor()
+        sampler.minFilter             = MTLSamplerMinMagFilter.nearest
+        sampler.magFilter             = MTLSamplerMinMagFilter.nearest
+        sampler.mipFilter             = MTLSamplerMipFilter.nearest
+        sampler.maxAnisotropy         = 1
+        sampler.sAddressMode          = MTLSamplerAddressMode.clampToEdge
+        sampler.tAddressMode          = MTLSamplerAddressMode.clampToEdge
+        sampler.rAddressMode          = MTLSamplerAddressMode.clampToEdge
+        sampler.normalizedCoordinates = true
+        sampler.lodMinClamp           = 0
+        sampler.lodMaxClamp           = Float.greatestFiniteMagnitude
+        return device.makeSamplerState(descriptor: sampler)
+    }()
+
     var matrix: Matrix4 {
         let t = Matrix4()
         t.translate(positionX, y: positionY, z: positionZ)
@@ -37,8 +55,8 @@ class Node {
         return t
     }
 
-    init(name: String, vertices: [Vertex], device: MTLDevice) {
-        var vertexData = [float4]()
+    init(name: String, vertices: [Vertex], device: MTLDevice, texture: MTLTexture? = nil) {
+        var vertexData = [Float]()
         for vertex in vertices {
             vertexData += vertex.buffer
         }
@@ -48,25 +66,15 @@ class Node {
 
         self.name = name
         self.device = device
+        self.texture = texture
         vertexCount = vertices.count
     }
 
-
-    func render(commandQueue: MTLCommandQueue,
+    func render(with renderEncoder: MTLRenderCommandEncoder,
                 pipelineState: MTLRenderPipelineState,
-                drawable: CAMetalDrawable,
                 parentModelViewMatrix: Matrix4,
-                projectionMatrix: Matrix4,
-                clearColor: MTLClearColor?)
+                projectionMatrix: Matrix4)
     {
-        let renderPassDescriptor = MTLRenderPassDescriptor()
-        renderPassDescriptor.colorAttachments[0].texture = drawable.texture
-        renderPassDescriptor.colorAttachments[0].loadAction = .clear
-        renderPassDescriptor.colorAttachments[0].clearColor = clearColor ?? MTLClearColor(red: 0.0, green: 104.0/255.0, blue: 5.0/255.0, alpha: 1.0)
-        renderPassDescriptor.colorAttachments[0].storeAction = .store
-
-        guard let commandBuffer = commandQueue.makeCommandBuffer() else { return }
-        guard let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) else { return }
         renderEncoder.setCullMode(MTLCullMode.front)
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
@@ -83,15 +91,16 @@ class Node {
 
         renderEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
 
+        renderEncoder.setFragmentTexture(texture, index: 0)
+        if let samplerState = samplerState {
+            renderEncoder.setFragmentSamplerState(samplerState, index: 0)
+        }
+
         // Draw
         renderEncoder.drawPrimitives(type: .triangle,
                                      vertexStart: 0,
                                      vertexCount: vertexCount,
                                      instanceCount: vertexCount / 3)
-        renderEncoder.endEncoding()
-
-        commandBuffer.present(drawable)
-        commandBuffer.commit()
     }
 
     func updateWithDelta(delta: CFTimeInterval) {

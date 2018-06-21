@@ -22,7 +22,8 @@ class ViewController: UIViewController {
     var pipelineState: MTLRenderPipelineState!
     var commandQueue: MTLCommandQueue!
 
-    var objectToDraw: Node!
+    var nodes = [Node]()
+
     var timer: CADisplayLink!
 
     var lastFrameTimestamp = CFTimeInterval(0.0)
@@ -49,12 +50,11 @@ class ViewController: UIViewController {
                                                             nearZ: 0.01,
                                                             farZ: 100.0)
 
-        objectToDraw = Cube(device: device)
-//        objectToDraw.positionX = 0.0
-//        objectToDraw.positionY =  0.0
-//        objectToDraw.positionZ = -2.0
-//        objectToDraw.rotationZ = Matrix4.degrees(toRad: 45)
-//        objectToDraw.scale = 0.5
+        nodes.append(Rectangle(device: device))
+        nodes.append(Rectangle(device: device))
+        nodes.append(Rectangle(device: device))
+        nodes.append(Rectangle(device: device))
+        nodes.append(Triangle(device: device))
 
         let defaultLibrary = device.makeDefaultLibrary()!
         let vertexProgram   = defaultLibrary.makeFunction(name: "vertex_main")
@@ -73,25 +73,40 @@ class ViewController: UIViewController {
         timer.add(to: RunLoop.main, forMode: RunLoopMode.defaultRunLoopMode)
     }
 
+    func makeRenderComponents(with drawable: CAMetalDrawable) -> (MTLCommandBuffer?, MTLRenderCommandEncoder?) {
+        guard let commandBuffer = commandQueue.makeCommandBuffer() else {
+            return (nil, nil)
+        }
+
+        let renderPassDescriptor = MTLRenderPassDescriptor()
+        renderPassDescriptor.colorAttachments[0].texture = drawable.texture
+        renderPassDescriptor.colorAttachments[0].loadAction  = .clear
+        renderPassDescriptor.colorAttachments[0].storeAction = .store
+        renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColor(red: 0.0,
+                                                                            green: 104.0/255.0,
+                                                                            blue: 5.0/255.0, alpha: 1.0)
+        return (commandBuffer, commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor))
+    }
+
     func render() {
         guard let drawable = metalLayer.nextDrawable() else { return }
+        let components = makeRenderComponents(with: drawable)
+        guard let commandBuffer = components.0, let renderEncoder = components.1 else { return }
 
         let worldModelMatrix = Matrix4()
         worldModelMatrix.translate(0.0, y: 0.0, z: -7.0)
-        worldModelMatrix.rotateAroundX(Matrix4.degrees(toRad: 25), y: 0.0, z: 0.0)
+        worldModelMatrix.rotateAroundX(0, y: 0.0, z: 0.0)
 
-        objectToDraw.render(commandQueue: commandQueue,
-                            pipelineState: pipelineState,
-                            drawable: drawable,
-                            parentModelViewMatrix: worldModelMatrix,
-                            projectionMatrix: projectionMatrix,
-                            clearColor: nil)
-    }
-
-    @objc func gameloop() {
-      autoreleasepool {
-        self.render()
+        for node in nodes {
+            node.render(with: renderEncoder,
+                        pipelineState: pipelineState,
+                        parentModelViewMatrix: worldModelMatrix,
+                        projectionMatrix: projectionMatrix)
         }
+
+        renderEncoder.endEncoding()
+        commandBuffer.present(drawable)
+        commandBuffer.commit()
     }
 
     @objc func newFrame(displayLink: CADisplayLink) {
@@ -106,7 +121,9 @@ class ViewController: UIViewController {
     }
 
     func gameloop(timeSinceLastUpdate: CFTimeInterval) {
-        objectToDraw.updateWithDelta(delta: timeSinceLastUpdate)
+        for node in nodes {
+            node.updateWithDelta(delta: timeSinceLastUpdate)
+        }
         autoreleasepool {
             self.render()
         }

@@ -19,6 +19,7 @@
 		FB8A2A0620DB8A630081663A /* Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A2A0520DB8A630081663A /* Cube.swift */; };
 		FB8A2A0A20DB8EEA0081663A /* Matrix4.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8A2A0820DB8EEA0081663A /* Matrix4.m */; };
 		FB8A2A0D20DB8F480081663A /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8A2A0C20DB8F480081663A /* GLKit.framework */; };
+		FB8A2A1220DB9FD80081663A /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A2A1120DB9FD80081663A /* Rectangle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,8 @@
 		FB8A2A0820DB8EEA0081663A /* Matrix4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix4.m; sourceTree = "<group>"; };
 		FB8A2A0920DB8EEA0081663A /* Matrix4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix4.h; sourceTree = "<group>"; };
 		FB8A2A0C20DB8F480081663A /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		FB8A2A1120DB9FD80081663A /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
+		FBFE529020DBA9F5004E3239 /* MetalTexture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalTexture.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,19 +75,15 @@
 		FB6F23A320DA3EB3008061B9 /* HelloMetal */ = {
 			isa = PBXGroup;
 			children = (
-				FB6F23B620DA4042008061B9 /* Shaders.metal */,
+				FB8A2A1020DB9F9D0081663A /* Utils */,
+				FB8A2A0F20DB9F8C0081663A /* Shaders */,
+				FB8A2A0E20DB9F820081663A /* Model */,
 				FB6F23A420DA3EB3008061B9 /* AppDelegate.swift */,
 				FB6F23A620DA3EB3008061B9 /* ViewController.swift */,
-				FB8A2A0120DB846E0081663A /* Vertex.swift */,
-				FB8A29FF20DB844C0081663A /* Node.swift */,
-				FB8A2A0320DB870A0081663A /* Triangle.swift */,
-				FB8A2A0520DB8A630081663A /* Cube.swift */,
 				FB6F23A820DA3EB3008061B9 /* Main.storyboard */,
 				FB6F23AB20DA3EB4008061B9 /* Assets.xcassets */,
 				FB6F23AD20DA3EB4008061B9 /* LaunchScreen.storyboard */,
 				FB6F23B020DA3EB4008061B9 /* Info.plist */,
-				FB8A2A0920DB8EEA0081663A /* Matrix4.h */,
-				FB8A2A0820DB8EEA0081663A /* Matrix4.m */,
 				FB8A2A0720DB8EE90081663A /* HelloMetal-Bridging-Header.h */,
 			);
 			path = HelloMetal;
@@ -96,6 +95,36 @@
 				FB8A2A0C20DB8F480081663A /* GLKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FB8A2A0E20DB9F820081663A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FB8A2A0120DB846E0081663A /* Vertex.swift */,
+				FB8A29FF20DB844C0081663A /* Node.swift */,
+				FB8A2A0320DB870A0081663A /* Triangle.swift */,
+				FB8A2A1120DB9FD80081663A /* Rectangle.swift */,
+				FB8A2A0520DB8A630081663A /* Cube.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FB8A2A0F20DB9F8C0081663A /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				FBFE529020DBA9F5004E3239 /* MetalTexture.swift */,
+				FB6F23B620DA4042008061B9 /* Shaders.metal */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
+		FB8A2A1020DB9F9D0081663A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FB8A2A0920DB8EEA0081663A /* Matrix4.h */,
+				FB8A2A0820DB8EEA0081663A /* Matrix4.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +202,7 @@
 				FB6F23B720DA4042008061B9 /* Shaders.metal in Sources */,
 				FB6F23A720DA3EB3008061B9 /* ViewController.swift in Sources */,
 				FB6F23A520DA3EB3008061B9 /* AppDelegate.swift in Sources */,
+				FB8A2A1220DB9FD80081663A /* Rectangle.swift in Sources */,
 				FB8A2A0420DB870A0081663A /* Triangle.swift in Sources */,
 				FB8A2A0220DB846E0081663A /* Vertex.swift in Sources */,
 				FB8A2A0A20DB8EEA0081663A /* Matrix4.m in Sources */,

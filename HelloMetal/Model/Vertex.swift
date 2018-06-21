@@ -19,21 +19,28 @@ struct Vertex {
         return float4(r, g, b, a)
     }
 
+    var texCoord: float2 {
+        return float2(u,v)
+    }
+
     var x,y,z,w: Float // position data
     var r,g,b,a: Float // color data
+    var u,v    : Float // u, v
 
-    var buffer: [float4] {
-        return [position, color]
+    var buffer: [Float] {
+        return [x,y,z,w,r,g,b,a,u,v]
     }
 
-    init(x: Float, y: Float, z: Float, w: Float = 1, r: Float, g: Float, b: Float, a: Float) {
+    init(x: Float, y: Float, z: Float, w: Float = 1, r: Float, g: Float, b: Float, a: Float, u: Float = 0, v: Float = 0) {
         (self.x, self.y, self.z, self.w) = (x, y, z, w)
         (self.r, self.g, self.b, self.a) = (r, g, b, a)
+        (self.u, self.v) = (u, v)
     }
 
-    init(position: float4, color: float4) {
+    init(position: float4, color: float4, texCoords: float2 = float2(0)) {
         self.init(x: position.x, y: position.y, z: position.z, w: position.w,
-                  r: color.x, g: color.y, b: color.z, a: color.w)
+                  r: color.x, g: color.y, b: color.z, a: color.w,
+                  u: texCoords.x, v: texCoords.y)
     }
 
     mutating func scale(v: Float) {
