@@ -74,6 +74,25 @@ class ViewController: UIViewController {
         timer.add(to: RunLoop.main, forMode: RunLoop.Mode.default)
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        if let window = view.window {
+            let scale = window.screen.nativeScale
+            let layerSize = view.bounds.size
+
+            view.contentScaleFactor = scale
+            metalLayer.frame = CGRect(x: 0, y: 0, width: layerSize.width, height: layerSize.height)
+            metalLayer.drawableSize = CGSize(width: layerSize.width * scale, height: layerSize.height * scale)
+
+            let aspectRatio = Float(view.bounds.size.width / view.bounds.size.height)
+            projectionMatrix = Matrix4.makePerspectiveViewAngle(Matrix4.degrees(toRad: 85.0),
+                                                                aspectRatio: aspectRatio,
+                                                                nearZ: 0.01,
+                                                                farZ: 100.0)
+        }
+    }
+
     func makeRenderComponents(with drawable: CAMetalDrawable) -> (MTLCommandBuffer?, MTLRenderCommandEncoder?) {
         guard let commandBuffer = commandQueue.makeCommandBuffer() else {
             return (nil, nil)
