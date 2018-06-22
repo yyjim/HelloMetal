@@ -70,7 +70,7 @@ class ViewController: UIViewController {
         commandQueue = device.makeCommandQueue()
 
         timer = CADisplayLink(target: self, selector: #selector(ViewController.newFrame(displayLink:)))
-        timer.add(to: RunLoop.main, forMode: RunLoopMode.defaultRunLoopMode)
+        timer.add(to: RunLoop.main, forMode: RunLoop.Mode.default)
     }
 
     func makeRenderComponents(with drawable: CAMetalDrawable) -> (MTLCommandBuffer?, MTLRenderCommandEncoder?) {
