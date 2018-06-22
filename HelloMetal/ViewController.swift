@@ -98,10 +98,13 @@ class ViewController: UIViewController {
         worldModelMatrix.rotateAroundX(0, y: 0.0, z: 0.0)
 
         for node in nodes {
-            node.render(with: renderEncoder,
-                        pipelineState: pipelineState,
-                        parentModelViewMatrix: worldModelMatrix,
-                        projectionMatrix: projectionMatrix)
+            let completedHandler = node.render(with: renderEncoder,
+                                               pipelineState: pipelineState,
+                                               parentModelViewMatrix: worldModelMatrix,
+                                               projectionMatrix: projectionMatrix)
+            commandBuffer.addCompletedHandler { _ in
+                completedHandler()
+            }
         }
 
         renderEncoder.endEncoding()

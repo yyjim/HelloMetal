@@ -20,6 +20,7 @@
 		FB8A2A0A20DB8EEA0081663A /* Matrix4.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8A2A0820DB8EEA0081663A /* Matrix4.m */; };
 		FB8A2A0D20DB8F480081663A /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8A2A0C20DB8F480081663A /* GLKit.framework */; };
 		FB8A2A1220DB9FD80081663A /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A2A1120DB9FD80081663A /* Rectangle.swift */; };
+		FBF6FE7720DCB05700CF2105 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF6FE7620DCB05700CF2105 /* BufferProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		FB8A2A0920DB8EEA0081663A /* Matrix4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix4.h; sourceTree = "<group>"; };
 		FB8A2A0C20DB8F480081663A /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		FB8A2A1120DB9FD80081663A /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
+		FBF6FE7620DCB05700CF2105 /* BufferProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
 		FBFE529020DBA9F5004E3239 /* MetalTexture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalTexture.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 			children = (
 				FB8A2A0920DB8EEA0081663A /* Matrix4.h */,
 				FB8A2A0820DB8EEA0081663A /* Matrix4.m */,
+				FBF6FE7620DCB05700CF2105 /* BufferProvider.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBF6FE7720DCB05700CF2105 /* BufferProvider.swift in Sources */,
 				FB6F23B720DA4042008061B9 /* Shaders.metal in Sources */,
 				FB6F23A720DA3EB3008061B9 /* ViewController.swift in Sources */,
 				FB6F23A520DA3EB3008061B9 /* AppDelegate.swift in Sources */,

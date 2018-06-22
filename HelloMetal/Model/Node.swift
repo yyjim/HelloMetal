@@ -19,6 +19,8 @@ class Node {
     var vertexCount: Int
     var vertexBuffer: MTLBuffer
 
+    var bufferProvider: BufferProvider
+
     var positionX: Float = 0.0
     var positionY: Float = 0.0
     var positionZ: Float = 0.0
@@ -68,13 +70,18 @@ class Node {
         self.device = device
         self.texture = texture
         vertexCount = vertices.count
+
+        self.bufferProvider = BufferProvider(device: device, inflightBuffersCount: 3,
+                                             sizeOfUniformsBuffer: MemoryLayout<Float>.size * Matrix4.numberOfElements() * 2)
     }
 
     func render(with renderEncoder: MTLRenderCommandEncoder,
                 pipelineState: MTLRenderPipelineState,
                 parentModelViewMatrix: Matrix4,
-                projectionMatrix: Matrix4)
+                projectionMatrix: Matrix4) -> (() -> Void)
     {
+        _ = bufferProvider.avaliableResourcesSemaphore.wait(timeout: DispatchTime.distantFuture)
+
         renderEncoder.setCullMode(MTLCullMode.front)
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
@@ -82,13 +89,8 @@ class Node {
         // uniform data for shader
         let nodeModelMatrix = matrix
         nodeModelMatrix.multiplyLeft(parentModelViewMatrix)
-        let uniformBuffer = device.makeBuffer(length: MemoryLayout<Float>.size * Matrix4.numberOfElements() * 2,
-                                              options: [])!
-        let bufferPointer = uniformBuffer.contents()
-        // Copy your matrix data into the buffer.
-        memcpy(bufferPointer, nodeModelMatrix.raw(), MemoryLayout<Float>.size * Matrix4.numberOfElements())
-        memcpy(bufferPointer + MemoryLayout<Float>.size * Matrix4.numberOfElements(), projectionMatrix.raw(), MemoryLayout<Float>.size * Matrix4.numberOfElements())
-
+        let uniformBuffer = bufferProvider.nextUniformsBuffer(projectionMatrix: projectionMatrix,
+                                                              modelViewMatrix: nodeModelMatrix)
         renderEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
 
         renderEncoder.setFragmentTexture(texture, index: 0)
@@ -101,6 +103,9 @@ class Node {
                                      vertexStart: 0,
                                      vertexCount: vertexCount,
                                      instanceCount: vertexCount / 3)
+        return {
+            self.bufferProvider.avaliableResourcesSemaphore.signal()
+        }
     }
 
     func updateWithDelta(delta: CFTimeInterval) {
