@@ -43,6 +43,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupGestures()
 
         let aspectRatio = Float(view.bounds.size.width / view.bounds.size.height)
         projectionMatrix = Matrix4.makePerspectiveViewAngle(Matrix4.degrees(toRad: 85.0),
@@ -129,6 +130,32 @@ class ViewController: UIViewController {
         }
         autoreleasepool {
             self.render()
+        }
+    }
+
+    func setupGestures() {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(ViewController.handlePanRecognizer(_:)))
+        view.addGestureRecognizer(pan)
+    }
+
+    let panSensivity: Float = 5.0
+    var lastPanLocation = CGPoint.zero
+
+    @objc private func handlePanRecognizer(_ recognizer: UIGestureRecognizer) {
+
+        if recognizer.state == .began {
+            lastPanLocation = recognizer.location(in: self.view)
+            return
+        }
+
+        if recognizer.state == .changed {
+            let pointInView = recognizer.location(in: self.view)
+            let xDelta = Float((lastPanLocation.x - pointInView.x) / view.bounds.width) * panSensivity
+            let yDelta = Float((lastPanLocation.y - pointInView.y) / view.bounds.height) * panSensivity
+
+            nodes.first?.rotationY -= xDelta
+            nodes.first?.rotationX -= yDelta
+            lastPanLocation = pointInView
         }
     }
 }
