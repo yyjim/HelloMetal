@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB58003D20E08B0C0070C9B9 /* jason.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FB58003C20E08B0C0070C9B9 /* jason.mp4 */; };
+		FB58003F20E0A3A10070C9B9 /* CVPixelBuffer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB58003E20E0A3A10070C9B9 /* CVPixelBuffer+Ext.swift */; };
+		FB58004120E0BA140070C9B9 /* CGRect+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB58004020E0BA140070C9B9 /* CGRect+Ext.swift */; };
 		FB6F23A520DA3EB3008061B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6F23A420DA3EB3008061B9 /* AppDelegate.swift */; };
 		FB6F23A720DA3EB3008061B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6F23A620DA3EB3008061B9 /* ViewController.swift */; };
 		FB6F23AA20DA3EB3008061B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB6F23A820DA3EB3008061B9 /* Main.storyboard */; };
@@ -27,6 +30,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FB58003C20E08B0C0070C9B9 /* jason.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = jason.mp4; sourceTree = "<group>"; };
+		FB58003E20E0A3A10070C9B9 /* CVPixelBuffer+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Ext.swift"; sourceTree = "<group>"; };
+		FB58004020E0BA140070C9B9 /* CGRect+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Ext.swift"; sourceTree = "<group>"; };
 		FB6F23A120DA3EB3008061B9 /* HelloMetal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloMetal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB6F23A420DA3EB3008061B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB6F23A620DA3EB3008061B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +69,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FB58003B20E08B020070C9B9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FB58003C20E08B0C0070C9B9 /* jason.mp4 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		FB6F239820DA3EB3008061B9 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +110,7 @@
 				FB6F23AD20DA3EB4008061B9 /* LaunchScreen.storyboard */,
 				FB6F23B020DA3EB4008061B9 /* Info.plist */,
 				FB8A2A0720DB8EE90081663A /* HelloMetal-Bridging-Header.h */,
+				FB58003B20E08B020070C9B9 /* Resources */,
 			);
 			path = HelloMetal;
 			sourceTree = "<group>";
@@ -135,6 +150,8 @@
 				FB8A2A0920DB8EEA0081663A /* Matrix4.h */,
 				FB8A2A0820DB8EEA0081663A /* Matrix4.m */,
 				FBF6FE7620DCB05700CF2105 /* BufferProvider.swift */,
+				FB58003E20E0A3A10070C9B9 /* CVPixelBuffer+Ext.swift */,
+				FB58004020E0BA140070C9B9 /* CGRect+Ext.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -201,6 +218,7 @@
 				FB6F23AF20DA3EB4008061B9 /* LaunchScreen.storyboard in Resources */,
 				FB6F23AC20DA3EB4008061B9 /* Assets.xcassets in Resources */,
 				FB6F23AA20DA3EB3008061B9 /* Main.storyboard in Resources */,
+				FB58003D20E08B0C0070C9B9 /* jason.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +238,8 @@
 				FB8A2A1220DB9FD80081663A /* Rectangle.swift in Sources */,
 				FB8A2A0420DB870A0081663A /* Triangle.swift in Sources */,
 				FB8A2A0220DB846E0081663A /* Vertex.swift in Sources */,
+				FB58004120E0BA140070C9B9 /* CGRect+Ext.swift in Sources */,
+				FB58003F20E0A3A10070C9B9 /* CVPixelBuffer+Ext.swift in Sources */,
 				FB8A2A0A20DB8EEA0081663A /* Matrix4.m in Sources */,
 				FB8A2A0620DB8A630081663A /* Cube.swift in Sources */,
 				FB8A2A0020DB844C0081663A /* Node.swift in Sources */,
