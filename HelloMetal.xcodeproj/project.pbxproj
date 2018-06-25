@@ -21,6 +21,9 @@
 		FB8A2A0D20DB8F480081663A /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8A2A0C20DB8F480081663A /* GLKit.framework */; };
 		FB8A2A1220DB9FD80081663A /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A2A1120DB9FD80081663A /* Rectangle.swift */; };
 		FBF6FE7720DCB05700CF2105 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF6FE7620DCB05700CF2105 /* BufferProvider.swift */; };
+		FBF6FE7B20DCEB9500CF2105 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF6FE7A20DCEB9500CF2105 /* Renderer.swift */; };
+		FBF6FE7D20DCEF6600CF2105 /* HMRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF6FE7C20DCEF6600CF2105 /* HMRenderer.swift */; };
+		FBF6FE7F20DD01B300CF2105 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF6FE7E20DD01B300CF2105 /* ViewController2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 		FB8A2A0C20DB8F480081663A /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		FB8A2A1120DB9FD80081663A /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		FBF6FE7620DCB05700CF2105 /* BufferProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
+		FBF6FE7A20DCEB9500CF2105 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		FBF6FE7C20DCEF6600CF2105 /* HMRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMRenderer.swift; sourceTree = "<group>"; };
+		FBF6FE7E20DD01B300CF2105 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		FBFE529020DBA9F5004E3239 /* MetalTexture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalTexture.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +88,9 @@
 				FB8A2A0E20DB9F820081663A /* Model */,
 				FB6F23A420DA3EB3008061B9 /* AppDelegate.swift */,
 				FB6F23A620DA3EB3008061B9 /* ViewController.swift */,
+				FBF6FE7E20DD01B300CF2105 /* ViewController2.swift */,
+				FBF6FE7C20DCEF6600CF2105 /* HMRenderer.swift */,
+				FBF6FE7A20DCEB9500CF2105 /* Renderer.swift */,
 				FB6F23A820DA3EB3008061B9 /* Main.storyboard */,
 				FB6F23AB20DA3EB4008061B9 /* Assets.xcassets */,
 				FB6F23AD20DA3EB4008061B9 /* LaunchScreen.storyboard */,
@@ -205,13 +214,16 @@
 				FBF6FE7720DCB05700CF2105 /* BufferProvider.swift in Sources */,
 				FB6F23B720DA4042008061B9 /* Shaders.metal in Sources */,
 				FB6F23A720DA3EB3008061B9 /* ViewController.swift in Sources */,
+				FBF6FE7D20DCEF6600CF2105 /* HMRenderer.swift in Sources */,
 				FB6F23A520DA3EB3008061B9 /* AppDelegate.swift in Sources */,
+				FBF6FE7B20DCEB9500CF2105 /* Renderer.swift in Sources */,
 				FB8A2A1220DB9FD80081663A /* Rectangle.swift in Sources */,
 				FB8A2A0420DB870A0081663A /* Triangle.swift in Sources */,
 				FB8A2A0220DB846E0081663A /* Vertex.swift in Sources */,
 				FB8A2A0A20DB8EEA0081663A /* Matrix4.m in Sources */,
 				FB8A2A0620DB8A630081663A /* Cube.swift in Sources */,
 				FB8A2A0020DB844C0081663A /* Node.swift in Sources */,
+				FBF6FE7F20DD01B300CF2105 /* ViewController2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

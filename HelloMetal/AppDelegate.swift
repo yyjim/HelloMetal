@@ -11,11 +11,14 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-
+    lazy var window: UIWindow? = {
+        let w = UIWindow(frame: UIScreen.main.bounds)
+        return w
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        self.window?.rootViewController = ViewController2()
+        self.window?.makeKeyAndVisible()
         return true
     }
 

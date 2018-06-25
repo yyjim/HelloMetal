@@ -153,7 +153,7 @@ class ViewController: UIViewController {
     }
 
     func setupGestures() {
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(ViewController.handlePanRecognizer(_:)))
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanRecognizer(_:)))
         view.addGestureRecognizer(pan)
     }
 
