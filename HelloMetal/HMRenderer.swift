@@ -18,7 +18,7 @@ class HMRenderer: Renderer {
     var projectionMatrix = Matrix4()
     var worldModelMatrix = Matrix4()
 
-    private var device: MTLDevice! = MTLCreateSystemDefaultDevice()
+    var device: MTLDevice! = MTLCreateSystemDefaultDevice()
 
     private let bufferProvider: BufferProvider
 
@@ -58,8 +58,8 @@ class HMRenderer: Renderer {
         self.size = size
         self.bufferProvider = BufferProvider(device: device, inflightBuffersCount: 20,
                                              sizeOfUniformsBuffer: MemoryLayout<Float>.size * Matrix4.numberOfElements() * 2)
-        worldModelMatrix.translate(0.0, y: 0.0, z: -7.0)
-        worldModelMatrix.rotateAroundX(0, y: 0.0, z: 0)
+//        worldModelMatrix.translate(0.0, y: 0.0, z: -10)
+//        worldModelMatrix.rotateAroundX(0, y: 0.0, z: 0)
         setup()
     }
 
@@ -116,7 +116,7 @@ class HMRenderer: Renderer {
         currentCommandBuffer?.commit()
     }
 
-    func plot(of vertices: [Vertex], transform: Matrix4, image: UIImage) {
+    func plot(of vertices: [Vertex], transform: Matrix4, texture: MTLTexture) {
         guard let renderEncoder = currentRenderEncoder else {
             return
         }
@@ -134,7 +134,7 @@ class HMRenderer: Renderer {
 
         let dataSize = vertices.count * MemoryLayout.size(ofValue: vertices[0])
         let vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])!
-        
+
         renderEncoder.setCullMode(MTLCullMode.front)
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
@@ -145,9 +145,6 @@ class HMRenderer: Renderer {
         let uniformBuffer = bufferProvider.nextUniformsBuffer(projectionMatrix: projectionMatrix,
                                                               modelViewMatrix: nodeModelMatrix)
         renderEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
-
-        let textureLoader = MTKTextureLoader(device: device)
-        let texture = try! textureLoader.newTexture(cgImage: image.cgImage!, options: nil)
 
         renderEncoder.setFragmentTexture(texture, index: 0)
         if let samplerState = samplerState {
@@ -161,4 +158,11 @@ class HMRenderer: Renderer {
                                      instanceCount: vertexCount / 3)
     }
 
+    func plot(of vertices: [Vertex], transform: Matrix4, image: UIImage) {
+        let textureLoader = MTKTextureLoader(device: device)
+        let texture = try! textureLoader.newTexture(cgImage: image.cgImage!, options: nil)
+        plot(of: vertices, transform: transform, texture: texture)
+    }
+
 }
+

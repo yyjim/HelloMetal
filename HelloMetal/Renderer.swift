@@ -14,15 +14,28 @@ protocol Renderer {
     func end()
     
     func plot(of vertices: [Vertex], transform: Matrix4, image: UIImage)
+    func plot(of vertices: [Vertex], transform: Matrix4, texture: MTLTexture)
 }
 
 protocol Drawable {
     func draw(into renderer: Renderer)
 }
 
-struct Polygon : Drawable {
+class Polygon : Drawable {
 
-    let vertices: [Vertex]
+    let device: MTLDevice
+    var pixelBuffer: CVPixelBuffer?
+
+    private lazy var textureCache: CVMetalTextureCache = {
+        // Initialize the cache to convert the pixel buffer into a Metal texture.
+        var textureCache: CVMetalTextureCache?
+        guard CVMetalTextureCacheCreate(kCFAllocatorDefault, nil, device, nil, &textureCache) == kCVReturnSuccess else {
+            fatalError("Unable to allocate texture cache.")
+        }
+        return textureCache!
+    }()
+
+    var vertices: [Vertex]!
     var transform: Matrix4 {
         let t = Matrix4()
         t.translate(positionX, y: positionY, z: positionZ)
@@ -32,29 +45,47 @@ struct Polygon : Drawable {
 
     }
 
+    var frame: CGRect {
+        didSet {
+            updateVertices()
+        }
+    }
+
     var positionX: Float = 0.0
     var positionY: Float = 0.0
     var positionZ: Float = 0.0
 
     var rotationX: Float = 0.0
     var rotationY: Float = 0.0
-    var rotationZ: Float = 0.0
+    var rotationZ: Float = 10.0
     var scale: Float     = 1.0
 
-    init() {
-        let A = Vertex(x: -1.0, y:  1.7786666666666666, z:  0.0, r: 1.0, g: 0.0, b: 0.0, a: 1.0, u: 0, v: 0)
-        let B = Vertex(x: -1.0, y: -1.7786666666666666, z:  0.0, r: 0.0, g: 1.0, b: 0.0, a: 1.0, u: 0, v: 1)
-        let C = Vertex(x:  1.0, y: -1.7786666666666666, z:  0.0, r: 0.0, g: 0.0, b: 1.0, a: 1.0, u: 1, v: 1)
-        let D = Vertex(x:  1.0, y:  1.7786666666666666, z:  0.0, r: 0.1, g: 0.6, b: 0.4, a: 1.0, u: 1, v: 0)
-        let vertices = [
-            A,B,C,
-            A,C,D,
-            ]
-        self.vertices = vertices
+    init(frame: CGRect, device: MTLDevice) {
+        self.device = device
+        self.frame = frame
+        updateVertices()
     }
 
     func draw(into renderer: Renderer) {
-        let image = UIImage(named: "test")!
-        renderer.plot(of: vertices, transform: transform, image: image)
+        guard let texture = self.pixelBuffer?.convertToMTLTexture(with: textureCache) else {
+            return
+        }
+        renderer.plot(of: vertices, transform: transform, texture: texture)
     }
+
+    private func updateVertices() {
+        let viewportSize = UIScreen.main.bounds.size
+        let vs = frame.vertices
+        vertices = vs.map { (position, texCoord) in
+            var p = position.scale(sx: 1 / (viewportSize.width / 2), sy: 1 / (viewportSize.height / 2))
+            p = p.scale(sx: 1, sy: -1)
+            p.translate(dx: -1, dy: 1)
+            //p = p.applying(CGAffineTransform(rotationAngle: CGFloat(45 * Float.pi / 180)))
+            let (x, y) = (Float(p.x), Float(p.y))
+            let (u, v) = (Float(texCoord.x), Float(texCoord.y))
+            return Vertex(x: x, y: y, z:  0.0, r: 1.0, g: 0.0, b: 0.0, a: 1.0, u: u, v: v)
+        }
+
+    }
+
 }
