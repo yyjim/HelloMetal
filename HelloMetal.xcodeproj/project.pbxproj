@@ -10,6 +10,7 @@
 		FB58003D20E08B0C0070C9B9 /* jason.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FB58003C20E08B0C0070C9B9 /* jason.mp4 */; };
 		FB58003F20E0A3A10070C9B9 /* CVPixelBuffer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB58003E20E0A3A10070C9B9 /* CVPixelBuffer+Ext.swift */; };
 		FB58004120E0BA140070C9B9 /* CGRect+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB58004020E0BA140070C9B9 /* CGRect+Ext.swift */; };
+		FB667C0320E1E842005D8217 /* CGPoint+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB667C0220E1E842005D8217 /* CGPoint+Ext.swift */; };
 		FB6F23A520DA3EB3008061B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6F23A420DA3EB3008061B9 /* AppDelegate.swift */; };
 		FB6F23A720DA3EB3008061B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6F23A620DA3EB3008061B9 /* ViewController.swift */; };
 		FB6F23AA20DA3EB3008061B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB6F23A820DA3EB3008061B9 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		FB58003C20E08B0C0070C9B9 /* jason.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = jason.mp4; sourceTree = "<group>"; };
 		FB58003E20E0A3A10070C9B9 /* CVPixelBuffer+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Ext.swift"; sourceTree = "<group>"; };
 		FB58004020E0BA140070C9B9 /* CGRect+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Ext.swift"; sourceTree = "<group>"; };
+		FB667C0220E1E842005D8217 /* CGPoint+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Ext.swift"; sourceTree = "<group>"; };
 		FB6F23A120DA3EB3008061B9 /* HelloMetal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloMetal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB6F23A420DA3EB3008061B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB6F23A620DA3EB3008061B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				FBF6FE7620DCB05700CF2105 /* BufferProvider.swift */,
 				FB58003E20E0A3A10070C9B9 /* CVPixelBuffer+Ext.swift */,
 				FB58004020E0BA140070C9B9 /* CGRect+Ext.swift */,
+				FB667C0220E1E842005D8217 /* CGPoint+Ext.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				FB58004120E0BA140070C9B9 /* CGRect+Ext.swift in Sources */,
 				FB58003F20E0A3A10070C9B9 /* CVPixelBuffer+Ext.swift in Sources */,
 				FB8A2A0A20DB8EEA0081663A /* Matrix4.m in Sources */,
+				FB667C0320E1E842005D8217 /* CGPoint+Ext.swift in Sources */,
 				FB8A2A0620DB8A630081663A /* Cube.swift in Sources */,
 				FB8A2A0020DB844C0081663A /* Node.swift in Sources */,
 				FBF6FE7F20DD01B300CF2105 /* ViewController2.swift in Sources */,

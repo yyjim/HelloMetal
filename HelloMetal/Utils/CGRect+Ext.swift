@@ -31,15 +31,3 @@ extension CGRect {
     }
 
 }
-
-extension CGPoint
-{
-    func scale(sx: CGFloat, sy: CGFloat) -> CGPoint {
-        return CGPoint(x: x * sx, y: y * sy)
-    }
-
-    mutating func translate(dx: CGFloat, dy: CGFloat) {
-        x += dx
-        y += dy
-    }
-}
