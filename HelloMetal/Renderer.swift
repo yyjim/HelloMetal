@@ -77,15 +77,15 @@ class Polygon : Drawable {
         let viewportSize = UIScreen.main.bounds.size
         let vs = frame.vertices
         vertices = vs.map { (position, texCoord) in
-            var p = position.scale(sx: 1 / (viewportSize.width / 2), sy: 1 / (viewportSize.height / 2))
+            let pivot = CGPoint(x: frame.midX, y: frame.midY)
+            var p = position.rotate(by: 45, around: pivot)
+            p = p.scale(sx: 1 / (viewportSize.width / 2), sy: 1 / (viewportSize.height / 2))
             p = p.scale(sx: 1, sy: -1)
             p.translate(dx: -1, dy: 1)
-            //p = p.applying(CGAffineTransform(rotationAngle: CGFloat(45 * Float.pi / 180)))
             let (x, y) = (Float(p.x), Float(p.y))
             let (u, v) = (Float(texCoord.x), Float(texCoord.y))
             return Vertex(x: x, y: y, z:  0.0, r: 1.0, g: 0.0, b: 0.0, a: 1.0, u: u, v: v)
         }
 
     }
-
 }

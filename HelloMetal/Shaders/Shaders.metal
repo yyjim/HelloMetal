@@ -37,7 +37,7 @@ vertex VertexOut vertex_main(const device VertexIn *vertices [[buffer(0)]],
 
     VertexOut vertexOut;
 //    vertexOut.position = proj_Matrix * mv_Matrix * float4(vertexIn.position);
-    vertexOut.position =  float4(vertexIn.position);
+    vertexOut.position = float4(vertexIn.position);
     vertexOut.color = vertexIn.color;
     vertexOut.texCoord = vertexIn.texCoord;
     return vertexOut;
